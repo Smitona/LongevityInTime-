@@ -111,6 +111,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'longevity.longevity_backend.users.validators.LatinCharValidator',
     },
+    {
+        'NAME': 'longevity.longevity_backend.users.validators.SymbolValidator',
+    },
 ]
 
 
