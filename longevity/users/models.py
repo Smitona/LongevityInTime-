@@ -31,8 +31,8 @@ class CustomUser(AbstractUser):
     password = models.CharField(
         max_length=150,
         blank=False,
-        help_text='Password must have an uppercase, lowercase,number '
-                  'and special sybmol. Length must be 12-25 characters long.',
+        help_text='Password must have an uppercase, lowercase, number '
+                  'and special characters. Length must be 12-25 characters long.',
         validators=[
             RegexValidator(r'^[\w.@+-]+\Z'),
             MinLengthValidator(
@@ -53,5 +53,4 @@ class CustomUser(AbstractUser):
 
     def __str__(self) -> str:
         return self.email
-
 

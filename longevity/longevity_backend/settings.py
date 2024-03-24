@@ -88,12 +88,28 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        "OPTIONS": {
+            "min_length": 12,
+            "max_length": 25,
+        },
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+    {
+        'NAME': 'longevity.longevity_backend.users.validators.UppercaseValidator',
+    }
+    {
+        'NAME': 'longevity.longevity_backend.users.validators.LowercaseValidator',
+    },
+    {
+        'NAME': 'longevity.longevity_backend.users.validators.NumberValidator',
+    },
+    {
+        'NAME': 'longevity.longevity_backend.users.validators.LatinCharValidator',
     },
 ]
 
