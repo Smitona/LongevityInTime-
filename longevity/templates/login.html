@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Send OTP{% endblock %}
+
+{% block content %}
+  <form method="post">
+    {% csrf_token %}
+    <div>
+    <label for="email">Email:</label>
+      <input class="form_control" type="text" name="email" required >
+    </div>
+    <div>
+      <label for="password">Password:</label>
+        <input class="form_control" type="text" name="password" required >
+    </div>
+    <button class="btn btn-outline-info" type="submit">Send OTP for login</button>
+  </form>
+{% endblock %}

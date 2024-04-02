@@ -1,19 +1,24 @@
-from django.contrib import admin
 from django.urls import include, path
 
-from rest_framework import routers
 from rest_framework.routers import SimpleRouter
+
+from djoser.views import UserViewSet
+
+from users.views import CustomUserViewSet, LoginView, OTPView
 
 router = SimpleRouter()
 
 app_name = 'users'
 
-router.register('users', VeiwSet)
-
-# Для удаления, изменения и получения(me?)
+router.register(
+    r'user/(?P<user_id>\d+)',
+    CustomUserViewSet,
+    basename='users'
+)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path(r'auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.jwt')),
+    path('', include('djoser.urls')),
+    path('login/', LoginView.as_view(), name='login'),
+    path('otp/', OTPView.as_view(), name='otp'),
 ]

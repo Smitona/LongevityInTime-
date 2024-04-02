@@ -2,7 +2,7 @@ import re
 from django.core.exceptions import ValidationError
 
 
-class UppercaseValidator:
+class UppercaseValidator(object):
     def validate(self, password, user=None):
         if not re.findall(r'[A-Z]', password):
             raise ValidationError(
@@ -13,7 +13,7 @@ class UppercaseValidator:
         return 'Your password must contain at least one uppercase character.'
 
 
-class LowercaseValidator:
+class LowercaseValidator(object):
     def validate(self, password, user=None):
         if not re.findall(r'[a-z]', password):
             raise ValidationError(
@@ -24,7 +24,7 @@ class LowercaseValidator:
         return 'Your password must contain at least one lowercase character.'
 
 
-class LatinCharValidator:
+class LatinCharValidator(object):
     def validate(self, password, user=None):
         if re.findall(r'[а-яА-яЁё] ', password):
             raise ValidationError(
