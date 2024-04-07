@@ -2,8 +2,6 @@ from django.urls import include, path
 
 from rest_framework.routers import SimpleRouter
 
-from djoser.views import UserViewSet
-
 from users.views import CustomUserViewSet, LoginView, OTPView
 
 router = SimpleRouter()

@@ -1,3 +1,4 @@
+import datetime as dt
 import pyotp
 
 from django.contrib.auth import authenticate, login
@@ -36,9 +37,12 @@ class LoginView(View):
             email=email,
             password=password
         )
-        if user:
-            send_otp_email.delay(email)
-            return redirect(reverse('users:otp'))
+
+        if user is not None:
+            send_otp_email(request, email)
+            return redirect(reverse('users:otp')), email
+        else:
+            return HttpResponse('No such user.')
 
 
 class OTPView(View):
@@ -50,11 +54,28 @@ class OTPView(View):
 
     def post(self, request):
         otp = request.POST.get('otp')
-        email = request.POST.get('email')
 
-        totp = pyotp.TOTP(pyotp.random_base32(), interval=180)
-        if totp.verify(otp):
-            user = get_object_or_404(CustomUser, email=email)
-            login(request, user)
+        otp_valid_time = request.session['otp_valid_time']
+        otp_secret_key = request.session['otp_secret_key']
+
+        valid_time = dt.datetime.fromisoformat(otp_valid_time)
+
+        if dt.datetime.now() < valid_time:
+
+            totp = pyotp.TOTP(otp_secret_key, interval=180)
+
+            if totp.verify(otp):
+                email = 
+                user = get_object_or_404(CustomUser, email=email)
+                login(request, user)
+
+                del request.session['otp_valid_time']
+                del request.session['otp_secret_key']
+
+            else:
+                return HttpResponse('OTP is not valid!')
+
+        else:
+            return HttpResponse('OTP has expired!')
 
         return HttpResponse('OTP is verified!')
