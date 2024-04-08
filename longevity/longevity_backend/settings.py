@@ -196,8 +196,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 # MAIL_USE_SSL = True
 
-EMAIL_HOST_USER = 'KaterinaLyashenco@yandex.ru'
-EMAIL_HOST_PASSWORD = 'bqrviromxkyelxfs'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', default='user')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', default='password')
 
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
